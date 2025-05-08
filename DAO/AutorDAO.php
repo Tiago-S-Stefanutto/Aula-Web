@@ -1,7 +1,7 @@
 <?php
-    namespace PHPappMVCi\DAO;
+    namespace Aula_Web\DAO;
 
-    use PHPappMVCi\Model\Autor;
+    use Aula_Web\Model\Autor;
 
     final class AutorDAO extends DAO
     {

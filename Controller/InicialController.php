@@ -1,5 +1,5 @@
 <?php
-    namespace PHPappMVCi\Controller;
+    namespace Aula_Web\Controller;
 
     final class InicialController extends Controller
     {

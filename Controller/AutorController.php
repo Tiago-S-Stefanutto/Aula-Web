@@ -1,7 +1,7 @@
 <?php
-    namespace PHPappMVCi\Controller;
+    namespace Aula_Web\Controller;
 
-    use PHPappMVCi\Model\Autor;
+    use Aula_Web\Model\Autor;
     use Exception;
 
     final class AutorConrtoller extends Controller

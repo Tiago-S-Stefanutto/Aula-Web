@@ -1,5 +1,5 @@
 <?php
-    namespace PHPappMVCi\DAO;
+    namespace Aula_Web\DAO;
 
     use PDO;
 

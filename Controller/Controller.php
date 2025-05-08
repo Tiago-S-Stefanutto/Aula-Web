@@ -1,7 +1,7 @@
 <?php
-    namespace PHPappMVCi\Controller;
+    namespace Aula_Web\Controller;
 
-    use PHPappMVCi\Model\Model;
+    use Aula_Web\Model\Model;
 
     abstract class Controller
     {
