@@ -1,73 +1,70 @@
 <?php
+    namespace  Aula_Web\Model;
 
-namespace App\Model;
+    use Aula_Web\DAO\AlunoDAO;
+    use Exception;
 
-use App\DAO\AlunoDAO;
-use Exception;
-
-final class Aluno extends Model{
-    public ?int $id = null;
-
-    public ?string $Nome
+    final class Aluno extends Model
     {
-        set 
-        {
-            if(strlen($value) < 3)
-            {
-                throw new Exception("Nome deve conter no mínimo 3 caracteres");
+        public ?int $Id = null;
 
-                $this->Nome = $value;
+        public ?string $Nome
+        {
+            set
+            {
+                if(strlen($value) < 4)
+                    throw new Exception("Nome deve ter no mínimo 4 caracteres.");
+
+                    $this->Nome = $value;
             }
 
             get => $this->Nome ?? null;
         }
-    }
 
-    public ?string $RA
-    {
-        set
+        public ?string $RA
         {
-            if(empty($value))
-                throw new Exception("Preencha o RA");
+            set
+            {
+                if(empty($value))
+                    throw new Exception("Preencha o RA.");
 
-                $this->RA = $value;
+                    $this->RA ?? null;
+            }
+
+            get => $this->RA ?? null;
         }
 
-        get => $this->RA ?? null;
-    }
-
-    public ?string $Curso
-    {
-        set
+        public ?string $Curso
         {
-            if(strlen($value) < 3)
-                throw new Exception("Curso deve ter no mínimo 3 caracteres");
+            set
+            {
+                if(strlen($value) < 4)
+                    throw new Exception("Curso deve ter no mínimo 4 caracteres.");
 
-                $this->Curso = $value;
+                    $this->Curso = $value;
+            }
+
+            get => $this->Curso ?? null;
         }
 
-        get => $this->Curso ?? null;
-    }
+        function save() : Aluno
+        {
+            return new AlunoDAO()->save($this);
+        }
 
-    function save() : Aluno
-    {
-        return new AlunoDAO()->save($this);
-    }
+        function getById(int $id) : ?Aluno
+        {
+            return new AlunoDAO()->selectById($this);
+        }
 
-    function getById(int $id) : ?Aluno
-    {
-        return new AlunoDAO()->selectById($id);
-    }
+        function getAllRows() : array
+        {
+            $this->rows = new AlunoDAO()->select();
+        }
 
-    function getAllRows() : array
-    {
-        $this->rows = new AlunoDAO()->select();
-
-        return $this->rows;
+        function delete(int $id) : bool
+        {
+            return new AlunoDAO()->delete($id);
+        }
     }
-
-    function delete(int $id) : bool
-    {
-        return new AlunoDAO()->delete($id);
-    }
-}
+?>
