@@ -1,58 +1,56 @@
 <?php
-    namespace App\Controller;
 
-    use Aula_Web\Model\Login;
+namespace App\Controller;
 
-    final class LoginController
+use App\Model\Login;
+
+final class LoginController
+{
+    public static function index() : void
     {
-        public static function index() : void
-        {
-            $erro = "";
-            $model = new Login();
+        $erro = "";
 
-            if($_SERVER['REQUEST_METHOD'] == "POST")
+        $model = new Login();
+
+        if($_SERVER['REQUEST_METHOD'] == "POST")
+        {            
+            $model->Email = $_POST['email'];
+            $model->Senha = $_POST['senha'];
+            
+            $model = $model->logar();
+
+            if($model !== null)
             {
-                $model->Email = $_POST['email'];
-                $model->Senha = $_POST['senha'];
+                $_SESSION['usuario_logado'] = $model;
 
-                $model = $model->logar();
-
-                if($model !== null)
+                if(isset($_POST['lembrar']))
                 {
-                    $_SESSION['usuario_logado'] = $model;
-
-                    if(isset($_POST['lembrar']))
-                    {
-                        setcookie(
-                            name: "sistema_biblioteca_usuario",
-                            value : $model->Email,
-                            expires_or_options: time()+60*60*24*30
-                        );
-                    }
-
-                    header("Location: /");
+                    setcookie(
+                        name: "sistema_biblioteca_usuario",
+                        value : $model->Email,
+                        expires_or_options: time()+60*60*24*30
+                    );
                 }
-                else
-                {
-                    $erro = "Email ou senha incorretos.";
-                }
-            }
 
-            if(isset($_COOKIE['sistema_biblioteca_usuario']))
-                $model->Email = $_COOKIE['sistema_biblioteca_usuario'];
-
-            include VIEWS . '/Login/form_login.php';
+                header("Location: /");
+            } else 
+                $erro = "Email ou senha incorretos";      
         }
 
-        public static function logout() : void
-        {
-            session_destroy();
-            header("Location: /login");
-        }
+        if(isset($_COOKIE['sistema_biblioteca_usuario']))
+            $model->Email = $_COOKIE['sistema_biblioteca_usuario'];
 
-        public static function getUsuario() : Login
-        {
-            return unserialize(serialize($_SESSION['usuario_logado']));
-        }
+        include VIEWS . '/Login/form_login.php';
     }
-?>
+
+    public static function logout() : void
+    {
+        session_destroy();
+        header("Location: /login");
+    }
+
+    public static function getUsuario() : Login
+    {
+        return unserialize(serialize($_SESSION['usuario_logado']));
+    }
+}
