@@ -1,13 +1,13 @@
 <?php
-    namespace Aula_Web\Controller;
+    
+namespace App\Controller;
 
-    final class InicialController extends Controller
+final class InicialController extends Controller
+{
+    public static function index() : void
     {
-        public static function index() : void
-        {
-            parent::isProtected();
+        parent::isProtected();
 
-            include VIEWS . '/Inicial/home.php';
-        }
+        include VIEWS . '/Inicial/home.php';
     }
-?>
+}
