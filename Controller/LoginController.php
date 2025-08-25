@@ -1,5 +1,5 @@
 <?php
-    namespace Aula_Web\Controller;
+    namespace App\Controller;
 
     use Aula_Web\Model\Login;
 
